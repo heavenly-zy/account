@@ -2,7 +2,7 @@
   <Layout>Money.vue</Layout>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Money"
 };

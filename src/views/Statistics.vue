@@ -2,7 +2,7 @@
   <Layout>Statistics.vue</Layout>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Statistics"
 };
