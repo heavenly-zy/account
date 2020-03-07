@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
+    {{recordList}}
     <NumberPad :value.sync="record.amount" @submit="saveRecord" />
     <Types :value.sync="record.type" />
     <Notes @update:value="onUpdateNotes" />
@@ -21,15 +21,20 @@ type Record = {
   tags: string[];
   notes: string;
   type: string;
-  amount: number;
+  amount: number; // 数据类型
+  createdAt?: Date; // 类/构造函数
 };
+
+const recordList: Record[] = JSON.parse(
+  window.localStorage.getItem("recordList") || "[]"
+);
 
 @Component({
   components: { NumberPad, Types, Notes, Tags }
 })
 export default class Money extends Vue {
   tags = ["衣", "食", "住", "行"];
-  recordList: Record[] = [];
+  recordList: Record[] = recordList;
   record: Record = { tags: [], notes: "", type: "-", amount: 0 }; // 初始值
 
   onUpdateNotes(value: string) {
@@ -40,6 +45,7 @@ export default class Money extends Vue {
   }
   saveRecord() {
     const record2 = JSON.parse(JSON.stringify(this.record)); // 深拷贝
+    record2.createdAt = new Date();
     this.recordList.push(record2);
   }
   @Watch("recordList")
