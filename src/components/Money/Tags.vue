@@ -1,6 +1,5 @@
 <template>
   <div class="tags">
-    {{selectedTags}}
     <div class="new">
       <button @click="create">新增标签</button>
     </div>
