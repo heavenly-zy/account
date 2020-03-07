@@ -1,5 +1,6 @@
 <template>
   <div class="tags">
+    {{selectedTags}}
     <div class="new">
       <button @click="create">新增标签</button>
     </div>
@@ -30,6 +31,7 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
+    this.$emit("update:value", this.selectedTags); // 更新选中标签
   }
 
   create() {
@@ -37,7 +39,7 @@ export default class Tags extends Vue {
     if (name === "") {
       window.alert("标签名不能为空");
     } else if (this.dataSource) {
-      this.$emit("update:dataSource", [...this.dataSource, name]);
+      this.$emit("update:dataSource", [...this.dataSource, name]); // 更新总标签
     }
   }
 }
